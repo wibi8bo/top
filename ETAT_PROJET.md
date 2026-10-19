@@ -6,9 +6,9 @@ Mis à jour le 13.10.2026.
 
 Outil de gestion du temps pour le direct (horloge de référence, timers,
 chronomètres, décompte du média en cours dans OBS), en **un seul fichier
-HTML**. **Version 2.9.0** (13.10.2026) : modèles de disposition façon Windows
-(glisser une carte en haut de la fenêtre) et remplissage automatique des
-cases vides de la grille.
+HTML**. **Version 2.9.1** (19.10.2026) : première version chinoise —
+interface traduite au chargement, nom des cartes saisi par l'utilisateur
+laissé tel quel, logo sans lien sortant, avertissements de grille traduits.
 
 Dépôt : `github.com/noar-justedit/top` · démo : `noar-justedit.github.io/top`
 (GitHub Pages, servie depuis `main` : tout envoi sur GitHub met la démo à
@@ -80,9 +80,11 @@ Pas de build : le même `index.html` tourne sur Mac, Windows et Linux.
   Un second écran **n'écrit jamais** dans le localStorage.
 - **localStorage** : `topCards`, `topGridSize`, `topGridTracks`, `topObsWs`,
   `topMediaSrcFilter`, `topMediaSrcTypeFilter`, `topMasterVol`,
-  `topMediaSound`, `topTimerSound`, `topWakeLock`. Accès uniquement via le
-  wrapper `LS` : l'appli doit survivre à un navigateur qui bloque les données
-  de site (testé).
+  `topMediaSound`, `topTimerSound`, `topWakeLock`, `topLang`, `topUserNames`.
+  Accès uniquement via le wrapper `LS` : l'appli doit survivre à un navigateur
+  qui bloque les données de site (testé). `topLang` retient la langue ;
+  `topUserNames` la liste des cartes dont l'utilisateur a saisi le nom
+  lui-même (par `data-cid`), pour ne jamais les traduire.
 - **OBS** : WebSocket v5. `ws://localhost` est autorisé depuis une page
   HTTPS, `ws://<IP LAN>` non (règle du navigateur). Une Browser Source OBS
   est un navigateur séparé : elle ne peut pas être synchronisée par le canal

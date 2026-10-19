@@ -36,6 +36,12 @@ const ok=(n,c,d='')=>{ c?pass++:fail++; console.log((c?'  ok  ':'  FAIL'), n, c?
     }
     ok('back to 4 cards', await p.$$eval('.grid > .card', n=>n.filter(x=>getComputedStyle(x).display!=='none').length)===4);
     ok('AWAKE button present', await p.$('#wakeBtn')!==null);
+    ok('logo is not wrapped in a link', await p.evaluate(()=>{
+        const l=document.querySelector('.topbar img.logo');
+        return !!l && !l.closest('a');}));
+    const urlBefore = p.url();
+    await p.click('.topbar img.logo'); await p.waitForTimeout(400);
+    ok('clicking the logo does nothing', p.url()===urlBefore && c.pages().length===1);
     ok('SCREEN button on every card', await p.$$eval('.grid > .card', ns=>ns.every(n=>!!n.querySelector('.scrbtn'))));
     await p.fill('#gsCols','3'); await p.press('#gsCols','Enter'); await p.waitForTimeout(400);
     ok('grid 3 cols', (await p.evaluate(()=>getComputedStyle(document.querySelector('.grid')).gridTemplateColumns)).split(' ').length===3);
