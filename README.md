@@ -1,14 +1,16 @@
 # TOP! — 现场活动时间控制
 
 **单个 HTML 文件。无需安装。无需服务器。无需联网。**
+
 Develop by just edit; Translate by wibi8bo.
+
 原项目地址：[https://github.com/noar-justedit/top](https://github.com/noar-justedit/top)
 
 时钟、秒表、倒计时器和 OBS 媒体倒计时，专为现场活动制作而设计 —— 面向舞台监督、活动导演和广播操作员。
 
-![TOP! — 现场活动时间控制](https://raw.githubusercontent.com/noar-justedit/top/main/screenshot-v2.png)
+![TOP! — 现场活动时间控制](https://raw.githubusercontent.com/wibi8bo/top/main/screenshot-v2.png)
 
-**立即使用：** [noar-justedit.github.io/top](https://noar-justedit.github.io/top/)
+**立即使用：** [wibi8bo.github.io/top](https://wibi8bo.github.io/top/)
 
 ---
 
@@ -31,11 +33,11 @@ Develop by just edit; Translate by wibi8bo.
 
 ## 使用方法
 
-1. 下载 [`index.html`](https://github.com/noar-justedit/top/blob/main/index.html)
+1. 下载 [`index.html`](https://github.com/wibi8bo/top/blob/main/index.html)
 2. 用任何现代浏览器打开（Chrome、Firefox、Safari、Brave……）
 3. 就是这样。
 
-或者直接访问 [noar-justedit.github.io/top](https://noar-justedit.github.io/top/) 使用 —— 在 iPhone/iPad 上，用 Safari 打开并点击 **分享 → 添加到主屏幕**，即可获得类似原生应用的体验。连续点按控件两次不会再缩放页面；双指捏合缩放仍然可用。
+或者直接访问 [wibi8bo.github.io/top](https://wibi8bo.github.io/top/) 使用 —— 在 iPhone/iPad 上，用 Safari 打开并点击 **分享 → 添加到主屏幕**，即可获得类似原生应用的体验。连续点按控件两次不会再缩放页面；双指捏合缩放仍然可用。
 
 ---
 
@@ -211,7 +213,7 @@ TOP! 打开时是一个 2 × 2 网格：**时钟**、**倒计时器**、**秒表
 
 ### 连接另一台机器上的 OBS
 
-浏览器只允许 HTTPS 页面在目标是本机时建立不安全的 `ws://` 连接。所以在 [noar-justedit.github.io/top](https://noar-justedit.github.io/top/)（通过 HTTPS 提供服务）上，OBS 媒体倒计时只能连接到 **同一台机器** 上运行的 OBS。
+浏览器只允许 HTTPS 页面在目标是本机时建立不安全的 `ws://` 连接。所以在 [wibi8bo.github.io/top](https://wibi8bo.github.io/top/)（通过 HTTPS 提供服务）上，OBS 媒体倒计时只能连接到 **同一台机器** 上运行的 OBS。
 
 要控制另一台机器上的 OBS，请在本地打开 `index.html`（`file://`）或通过纯 `http://` 提供服务。TOP! 会检测到这种情况并告诉你，而不是静默失败。
 
