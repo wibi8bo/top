@@ -3,18 +3,18 @@ const F = 'file://' + require('path').resolve(__dirname, '..', 'index.html');
 let pass=0, fail=0;
 const ok=(n,c,d='')=>{ c?pass++:fail++; console.log((c?'  ok  ':'  FAIL'), n, c?'':d); };
 
-/* Chinese localization layer: default Chinese, runtime switch to English,
+/* Chinese localization layer: OS-detected default language, runtime switch,
    dynamic retranslation of app-rewritten strings, persistence, full restore. */
 (async()=>{
   const b = await chromium.launch();
 
-  // ---- default: Chinese, switcher injected next to the shortcuts button ----
+  // ---- default follows OS locale: Chinese system → Chinese UI ----
   {
-    const c = await b.newContext({viewport:{width:1440,height:900}});
+    const c = await b.newContext({viewport:{width:1440,height:900},locale:'zh-CN'});
     const p = await c.newPage(); const errs=[]; p.on('pageerror',e=>errs.push(''+e));
     await p.goto(F); await p.waitForTimeout(800);
     ok('boot without JS error', errs.length===0, errs.join('|'));
-    ok('default is Chinese (新建卡片)', (await p.textContent('#newCardBtn')).includes('新建卡片'));
+    ok('zh-CN locale defaults to Chinese (新建卡片)', (await p.textContent('#newCardBtn')).includes('新建卡片'));
     ok('lang button sits right after #shortcutsBtn', await p.evaluate(()=>{
       const s=document.getElementById('shortcutsBtn'), l=document.getElementById('langBtn');
       return !!l && s.nextSibling===l;
@@ -26,9 +26,22 @@ const ok=(n,c,d='')=>{ c?pass++:fail++; console.log((c?'  ok  ':'  FAIL'), n, c?
     await c.close();
   }
 
-  // ---- Chinese: static strings, attributes, meta (already the default) ----
+  // ---- default follows OS locale: non-Chinese system → English UI ----
   {
-    const c = await b.newContext({viewport:{width:1440,height:900}});
+    const c = await b.newContext({viewport:{width:1440,height:900},locale:'en-US'});
+    const p = await c.newPage(); const errs=[]; p.on('pageerror',e=>errs.push(''+e));
+    await p.goto(F); await p.waitForTimeout(800);
+    ok('en-US locale defaults to English (NEW CARD)', (await p.textContent('#newCardBtn')).includes('NEW CARD'));
+    ok('lang button shows 中', (await p.textContent('#langBtn span')).trim()==='中');
+    ok('document.title stays English', await p.title()==='TOP! — Live Event Time Control');
+    ok('html lang stays fr (original)', await p.evaluate(()=>document.documentElement.lang)==='fr');
+    ok('no JS error', errs.length===0, errs.join('|'));
+    await c.close();
+  }
+
+  // ---- Chinese: static strings, attributes, meta (force zh-CN locale) ----
+  {
+    const c = await b.newContext({viewport:{width:1440,height:900},locale:'zh-CN'});
     const p = await c.newPage(); const errs=[]; p.on('pageerror',e=>errs.push(''+e));
     await p.goto(F); await p.waitForTimeout(800);
 
